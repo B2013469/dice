@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Trò chơi xúc xắc</title>
+  <link rel="stylesheet" href="dice.css">
+</head>
+<body>
+  <h1>Trò chơi xúc xắc</h1>
+  <div><br><br><br><br></div>
+  <div class="cube">
+    <div class="face front"></div>
+    <div class="face back"></div>
+    <div class="face right"></div>
+    <div class="face left"></div>
+    <div class="face top"></div>
+    <div class="face bottom"></div>
+  </div>
+  <div>
+    <br>
+  </div>
+  <div><br><br><br><br></div>
+  <div>
+    <h2>Người chơi 1:</h2>
+    <p id="player1Result"></p>
+  </div>
+  <div>
+    <h2>Người chơi 2:</h2>
+    <p id="player2Result"></p>
+  </div>
+  <div>
+    <button class="custom-button" onclick="startGame()">Bắt đầu</button>
+  </div>
+  <script>
+    function startGame() {
+      var cube = document.querySelector('.cube');
+      var player1Result = document.getElementById('player1Result');
+      var player2Result = document.getElementById('player2Result');
+      
+      cube.classList.add('rolling');
+      
+      setTimeout(function() {
+        var randomNumber = Math.floor(Math.random() * 6) + 1;
+        player1Result.innerText = "Người chơi 1: " + randomNumber;
+        cube.classList.remove('rolling');
+        
+        cube.classList.add('rolling');
+        
+        setTimeout(function() {
+          var randomNumber = Math.floor(Math.random() * 6) + 1;
+          player2Result.innerText = "Người chơi 2: " + randomNumber;
+          cube.classList.remove('rolling');
+          
+          var player1Score = parseInt(player1Result.innerText.split(':')[1].trim());
+          var player2Score = parseInt(player2Result.innerText.split(':')[1].trim());
+          
+          if (player1Score > player2Score) {
+            player1Result.innerText += " - Thắng!";
+            player2Result.innerText += " - Thua!";
+          } else if (player1Score < player2Score) {
+            player1Result.innerText += " - Thua!";
+            player2Result.innerText += " - Thắng!";
+          } else {
+            player1Result.innerText += " - Hòa!";
+            player2Result.innerText += " - Hòa!";
+          }
+        }, 2000);
+      }, 2000);
+    }
+  </script>
+</body>
+</html>
